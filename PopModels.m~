@@ -1,0 +1,33 @@
+clf
+filename = 'CountyPop.xls';
+DallasRange = 3805;
+CollinRange = 3791;
+DentonRange = 3810;
+TarrantRange = 3971;
+WiseRange = ;
+ParkerRange = ;
+JohnsonRange = ;
+EllisRange = 3819;
+KaufmanRange = 3880;
+RockwallRange = 3950;
+
+RangesNames = ["Dallas", "Collin", "Denton", "Tarrant", "Wise", "Parker", "Johnson", "Ellis", "Kaufman", "Rockwall"];
+Ranges = [ DallasRange, CollinRange, DentonRange, TarrantRange, WiseRange, ParkerRange, JohnsonRange, EllisRange, KaufmanRange, RockwallRange];
+Sheet = xlsread(filename, 1);
+PopData = [];
+years = 1850:10:1990;
+for i = 1:length(Ranges)
+    PopData = [PopData; Sheet(Ranges(i), 2:16)];
+end
+PopData = fliplr(PopData);
+
+for i = 1:length(Ranges)
+    figure(i)
+    plot(years, PopData(i,:), 'bx');
+    hold on
+    xlabel('Years')
+    ylabel('Population')
+    title(RangesNames(i) + ' County Population over time')
+end
+
+
